@@ -1,0 +1,32 @@
+{
+  "missing_scope": {
+    "id": "SYN-C001", "provider": "Synthetic document platform", "correlation_id": "DEMO-2001", "now_epoch": 1000,
+    "identity": {"issuer": "https://login.example.invalid/tenant", "audience": "api://documents", "scopes": ["profile.read"], "expires_at": 5000},
+    "expected": {"issuer": "https://login.example.invalid/tenant", "audience": "api://documents", "required_scopes": ["documents.read"]},
+    "response": {"status": 403}
+  },
+  "expired": {
+    "id": "SYN-C002", "provider": "Synthetic helpdesk platform", "correlation_id": "DEMO-2002", "now_epoch": 6000,
+    "identity": {"issuer": "https://identity.example.invalid", "audience": "api://tickets", "scopes": ["tickets.read"], "expires_at": 5000},
+    "expected": {"issuer": "https://identity.example.invalid", "audience": "api://tickets", "required_scopes": ["tickets.read"]},
+    "response": {"status": 401}
+  },
+  "rate_limited": {
+    "id": "SYN-C003", "provider": "Synthetic knowledge base", "correlation_id": "DEMO-2003", "now_epoch": 1000,
+    "identity": {"issuer": "https://identity.example.invalid", "audience": "api://knowledge", "scopes": ["knowledge.read"], "expires_at": 5000},
+    "expected": {"issuer": "https://identity.example.invalid", "audience": "api://knowledge", "required_scopes": ["knowledge.read"]},
+    "response": {"status": 429, "retry_after_seconds": 15}
+  },
+  "healthy": {
+    "id": "SYN-C004", "provider": "Synthetic ticketing API", "correlation_id": "DEMO-2004", "now_epoch": 1000,
+    "identity": {"issuer": "https://identity.example.invalid", "audience": "api://tickets", "scopes": ["tickets.read"], "expires_at": 5000},
+    "expected": {"issuer": "https://identity.example.invalid", "audience": "api://tickets", "required_scopes": ["tickets.read"]},
+    "response": {"status": 200}
+  },
+  "wrong_audience": {
+    "id": "SYN-C005", "provider": "Synthetic CRM API", "correlation_id": "DEMO-2005", "now_epoch": 1000,
+    "identity": {"issuer": "https://identity.example.invalid", "audience": "api://wrong-resource", "scopes": ["crm.read"], "expires_at": 5000},
+    "expected": {"issuer": "https://identity.example.invalid", "audience": "api://crm", "required_scopes": ["crm.read"]},
+    "response": {"status": 401}
+  }
+}
